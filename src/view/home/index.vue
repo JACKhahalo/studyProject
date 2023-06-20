@@ -5,15 +5,23 @@
         <AsideNav></AsideNav>
       </div>
       <div class="container">
-        <div class="header"></div>
-        <div class="main"></div>
-        <div class="footer"></div>
+        <div class="header">
+          <headNav></headNav>
+        </div>
+        <div class="main">
+          <div class="card"><mainCard></mainCard></div>
+          <div class="main-back"><background></background></div>
+        </div>
+        <!-- <div class="footer"></div> -->
       </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
 import AsideNav from './asideNav.vue';
+import background from './background.vue';
+import mainCard from './mainCard.vue';
+import headNav from './headNav.vue';
 </script>
 <style scoped lang="scss">
 #main {
@@ -24,7 +32,6 @@ import AsideNav from './asideNav.vue';
 .main-container {
   display: flex;
   justify-content: space-between;
-
   height: 100%;
   width: 100%;
   .aside {
@@ -32,19 +39,26 @@ import AsideNav from './asideNav.vue';
   .container {
     display: flex;
     flex-direction: column;
+    align-content: space-between;
     position: relative;
     width: 100%;
-    background-color: #ebe6e6;
     .header {
-      position: sticky;
-      top: 0;
-      height: 10%;
-      min-height: 80px;
-      width: 100%;
-      background-color: #f0e0e0;
     }
     .main {
       height: 100%;
+      position: relative;
+      .main-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+      }
+      .card {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: flex;
+      }
     }
   }
 }

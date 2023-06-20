@@ -1,7 +1,7 @@
 <template>
   <div class="nav-box">
     <div class="avatar_box">
-      <img src="" />
+      <img src="src/assets/avater/avater.jpg" />
     </div>
     <div class="nav-item" v-for="item in menuList" :key="item.id">
       <div class="detail-box" @click="activeMenu(item.id)">
@@ -45,12 +45,20 @@ init();
   display: flex;
   flex-direction: column;
   transition: 0.5s;
+  overflow: hidden;
   .avatar_box {
     height: 75px;
     width: 75px;
     background-color: aliceblue;
     border-radius: 50%;
     margin: 20px 0 20px 2.5px;
+    transition: 0.5s;
+    overflow: hidden;
+
+    img {
+      height: 75px;
+      width: 75px;
+    }
   }
   .nav-item {
     .detail-box {
@@ -95,5 +103,10 @@ init();
 }
 .nav-box:hover .nav-item .detail-box a {
   display: inline;
+}
+.nav-box:hover .avatar_box {
+  // align-self: center;
+  transform: translateX(70%);
+  transition: 0.3s;
 }
 </style>
