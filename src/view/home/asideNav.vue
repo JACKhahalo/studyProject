@@ -4,7 +4,16 @@
       <img src="src/assets/avater/avater.jpg" />
     </div>
     <div class="nav-item" v-for="item in menuList" :key="item.id">
-      <div class="detail-box" @click="activeMenu(item.id)">
+      <div
+        ref="menuRef"
+        :id="item.id"
+        :class="
+          page.getId() == item.id
+            ? 'detail-box active-datail-box'
+            : 'detail-box'
+        "
+        @click="menuHandle(item.id)"
+      >
         <img :src="`${iconBaseUrl}${item.icon}`" />
         <a>{{ item.label }}</a>
       </div>
@@ -12,26 +21,33 @@
   </div>
 </template>
 <script setup lang="ts">
+import { ref, onMounted } from 'vue';
 import { asideList } from '../../assets/asideList.js';
-// import { reactive } from 'vue';
+import { usePageStore } from '../../stores/index';
 
-//data
+//data--------------------------------------------------------------------
 const iconBaseUrl: string = 'src/assets/icon/';
 //菜单数组
 let menuList: Array<any>;
-//
 
-//methods
+//page
+const menuRef = ref();
+const page = usePageStore();
+
+//methods----------------------------------------------------------------
 //初始化
 function init() {
   menuList = asideList;
-  console.log(menuList);
 }
-function activeMenu(id: number) {
-  console.log(id);
+function menuHandle(id: String) {
+  page.updataId(id);
+  page.updataCurrentMenuItem(id);
+  console.log(id, page.getCurrentMenuItem());
 }
 
 init();
+//hooks------------------------------------------------------------------
+onMounted(() => {});
 </script>
 <style scoped lang="scss">
 .nav-box {
@@ -81,7 +97,8 @@ init();
       }
     }
   }
-  .detail-box:hover {
+  .detail-box:hover,
+  .active-datail-box {
     transition: 1s;
     background-color: aliceblue;
     cursor: pointer;
