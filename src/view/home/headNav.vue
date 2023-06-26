@@ -23,7 +23,7 @@
 <script setup lang="ts">
 import shyBack from './shyBack.vue';
 import { usePageStore } from '../../stores/index';
-import { nextTick, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 
 const page = usePageStore();
 let cloudList = ref(page.getCurrentMenuItem());
@@ -33,11 +33,10 @@ watch(page.pageInfo, () => {
   cloudList.value = page.getCurrentMenuItem();
 });
 
+page.updateActivePage();
+
 function cloudClickHandle(id: any) {
   page.updateActivePage(id);
-  nextTick(() => {
-    console.log(page.getActivePage());
-  });
 }
 
 // watchEffect(() => {
@@ -88,7 +87,7 @@ $cloud-active-color: rgb(198, 207, 202);
   border-radius: 50%;
   position: relative;
   transition: 1s;
-
+  cursor: pointer;
   transform: 1s;
   opacity: 0;
   animation: cloud-show 1s ease-out forwards;

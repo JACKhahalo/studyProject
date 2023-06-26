@@ -1,15 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import { resolve } from 'path';
 //引入路由创建及路由访问形式
 
 import type { RouteRecordRaw } from 'vue-router';
 //引入路由类型
 
+import { asideList } from '../assets/asideList';
+
 //路由数组
 const routes: Array<RouteRecordRaw> = [
-  {
-    path: '/',
-    redirect: './home',
-  },
   {
     path: '/home',
     name: 'home',
@@ -19,17 +18,28 @@ const routes: Array<RouteRecordRaw> = [
       name: 'home',
     },
     //单独路由守卫
-    beforeEnter: (to, from) => {
-      console.log(`来自${to.path},去${from.path}`);
-    },
-  },
-  {
-    path: '/error',
-    name: 'error',
-    component: () => import('../view/error/index.vue'),
+    // beforeEnter: (to, from) => {
+    //   console.log(`来自${to.path},去${from.path}`);
+    // },
   },
 ];
 
+asideList.map((item) => {
+  let tempRoute: RouteRecordRaw;
+  if (item.children) {
+    item.children.map((child: { path: any; label: any }) => {
+      let temPath = resolve(__dirname, `../view/components${child.path}`);
+      tempRoute = {
+        path: child.path,
+        name: child.label,
+        component: () => import(/* @vite-ignore */ temPath),
+      };
+      routes.push(tempRoute);
+    });
+  }
+});
+/* @vite-ignore */
+//屏蔽警告
 //路由实例
 const router = createRouter({
   history: createWebHistory(),

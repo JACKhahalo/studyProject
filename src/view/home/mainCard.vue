@@ -1,7 +1,24 @@
 <template>
-  <div class="card-box"></div>
+  <div class="card-box">
+    <router-view></router-view>
+  </div>
 </template>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { watch } from 'vue';
+import { useRouter } from 'vue-router';
+import { usePageStore } from '../../stores/index';
+
+const router = useRouter();
+const page = usePageStore();
+watch(page.pageInfo, () => {
+  if (page.pageInfo.currentMenuItem.length > 0) {
+    router.push({
+      path: page.pageInfo.currentMenuItem[0].path,
+    });
+    console.log('richText', page.pageInfo.currentMenuItem[0].path, router);
+  }
+});
+</script>
 <style scoped lang="scss">
 @keyframes showBox {
   0% {

@@ -27,18 +27,26 @@ export const usePageStore = defineStore('page', () => {
   };
   //活跃菜单children
   const updataCurrentMenuItem = (id: any) => {
+    //更新菜单
     pageInfo.currentMenuItem = asideList.filter(
       (item) => item.id == id
     )[0].children;
+    //更新当前页面
+    pageInfo.activePage = pageInfo.currentMenuItem[0];
   };
   const getCurrentMenuItem = () => {
     return pageInfo.currentMenuItem;
   };
   //当前显示页面
-  const updateActivePage = (id: any) => {
-    pageInfo.activePage = pageInfo.currentMenuItem.filter((item) => {
-      return item.id == id;
-    })[0];
+  const updateActivePage = (id?: any) => {
+    if (id) {
+      pageInfo.activePage = pageInfo.currentMenuItem.filter((item) => {
+        return item.id == id;
+      })[0];
+    } else {
+      pageInfo.activePage = pageInfo.currentMenuItem[0];
+    }
+    console.log(pageInfo.activePage, 'id');
   };
 
   const getActivePage = () => {

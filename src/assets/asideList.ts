@@ -7,26 +7,8 @@ export const asideList: Array<any> = [
     children: [
       {
         id: 11,
-        label: 'test',
-        path: '/home',
-        icon: 'test',
-      },
-      {
-        id: 12,
-        label: 'test',
-        path: '/home',
-        icon: 'test',
-      },
-      {
-        id: 13,
-        label: 'test',
-        path: '/home',
-        icon: 'test',
-      },
-      {
-        id: 14,
-        label: 'test',
-        path: '/home',
+        label: 'richText',
+        path: '/richText',
         icon: 'test',
       },
     ],
@@ -36,26 +18,7 @@ export const asideList: Array<any> = [
     label: '首页2',
     path: '/home',
     icon: 'good.svg',
-    children: [
-      {
-        id: 21,
-        label: 'test',
-        path: '/home',
-        icon: 'test',
-      },
-      {
-        id: 22,
-        label: 'test',
-        path: '/home',
-        icon: 'test',
-      },
-      {
-        id: 23,
-        label: 'test',
-        path: '/home',
-        icon: 'test',
-      },
-    ],
+    children: [],
   },
   {
     id: 3,

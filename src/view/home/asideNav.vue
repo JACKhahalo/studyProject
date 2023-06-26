@@ -8,11 +8,11 @@
         ref="menuRef"
         :id="item.id"
         :class="
-          page.getId() == item.id
+          page.getId() == item?.id
             ? 'detail-box active-datail-box'
             : 'detail-box'
         "
-        @click="menuHandle(item.id)"
+        @click="menuHandle(item?.id)"
       >
         <img :src="`${iconBaseUrl}${item.icon}`" />
         <a>{{ item.label }}</a>
@@ -42,6 +42,7 @@ function init() {
 function menuHandle(id: String) {
   page.updataId(id);
   page.updataCurrentMenuItem(id);
+
   console.log(id, page.getCurrentMenuItem());
 }
 
