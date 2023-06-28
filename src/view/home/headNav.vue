@@ -24,19 +24,31 @@
 import shyBack from './shyBack.vue';
 import { usePageStore } from '../../stores/index';
 import { ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
 
 const page = usePageStore();
+const router = useRouter();
 let cloudList = ref(page.getCurrentMenuItem());
 
 watch(page.pageInfo, () => {
   // console.log(newVal, oldVal, 'watch', page.getCurrentMenuItem());
   cloudList.value = page.getCurrentMenuItem();
+  if (page.pageInfo.currentMenuItem.length > 0) {
+    routerPush(page.pageInfo.currentMenuItem[0].path);
+  }
 });
+
+function routerPush(path: any) {
+  router.push({
+    path: path,
+  });
+}
 
 page.updateActivePage();
 
 function cloudClickHandle(id: any) {
   page.updateActivePage(id);
+  routerPush(page.pageInfo.currentMenuItem[0].path);
 }
 
 // watchEffect(() => {

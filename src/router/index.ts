@@ -1,6 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import { resolve } from 'path';
-//引入路由创建及路由访问形式
 
 import type { RouteRecordRaw } from 'vue-router';
 //引入路由类型
@@ -28,11 +26,14 @@ asideList.map((item) => {
   let tempRoute: RouteRecordRaw;
   if (item.children) {
     item.children.map((child: { path: any; label: any }) => {
-      let temPath = resolve(__dirname, `../view/components${child.path}`);
+      let temPath = new URL(
+        `/src/view/components${child.path}.vue`,
+        window.location.href
+      );
       tempRoute = {
         path: child.path,
         name: child.label,
-        component: () => import(/* @vite-ignore */ temPath),
+        component: () => import(/* @vite-ignore */ temPath.href),
       };
       routes.push(tempRoute);
     });
